@@ -4,7 +4,11 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-
+  {
+    path: 'cat-facts',
+    loadChildren: () =>
+      import('./cats-facts/cats-facts.module').then((m) => m.CatsFactsModule),
+  },
   { path: '**', component: LoginComponent },
 ];
 
