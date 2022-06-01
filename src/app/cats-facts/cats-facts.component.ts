@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class CatsFactsComponent implements OnInit {
   facts: string[] = [];
   apiUrl: string = 'https://meowfacts.herokuapp.com/';
+  maxFacts: number = 90;
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,14 @@ export class CatsFactsComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('scrolled!!');
+    this.fetchFact().subscribe(({ data }: any) => {
+      if (this.checkIfMaxFacts()) return;
+      if (!this.checkIfAlreadyFetched(data)) {
+        this.addFactToFactArr(data);
+        return;
+      }
+      this.onScroll();
+    });
   }
 
   fetchFact(): Observable<{}> {
@@ -35,5 +43,9 @@ export class CatsFactsComponent implements OnInit {
 
   addFactToFactArr(data: any) {
     this.facts.push(data[0]);
+  }
+
+  checkIfMaxFacts(): boolean {
+    return this.facts.length === this.maxFacts;
   }
 }
