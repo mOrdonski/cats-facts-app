@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-
+  {
+    path: 'cat-facts',
+    loadChildren: () =>
+      import('./cats-facts/cats-facts.module').then((m) => m.CatsFactsModule),
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: LoginComponent },
 ];
 

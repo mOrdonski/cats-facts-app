@@ -1,0 +1,11 @@
+<div
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+>
+  <li class="cat-fact-card" *ngFor="let fact of facts" trackBy="refreshFacts">
+    {{ fact }}
+  </li>
+</div>

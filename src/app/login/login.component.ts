@@ -24,7 +24,8 @@ export class LoginComponent {
         account.username === this.logInForm.value.username &&
         account.password === this.logInForm.value.password
       ) {
-        console.log('logged in');
+        this.authService.isLoggedIn = true;
+        this.router.navigate(['/cat-facts']);
       }
     });
   }
