@@ -48,4 +48,8 @@ export class CatsFactsComponent implements OnInit {
   checkIfMaxFacts(): boolean {
     return this.facts.length === this.maxFacts;
   }
+
+  refreshFacts(fact: string): string {
+    return fact;
+  }
 }
