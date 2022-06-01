@@ -16,7 +16,7 @@ export class CatsFactsComponent implements OnInit {
   ngOnInit(): void {
     for (let i = 0; i < 15; i++) {
       this.fetchFact().subscribe(({ data }: any) => {
-        if (!this.facts.includes(data[0])) this.facts.push(data[0]);
+        if (!this.checkIfAlreadyFetched(data)) this.addFactToFactArr(data);
       });
     }
   }
@@ -27,5 +27,13 @@ export class CatsFactsComponent implements OnInit {
 
   fetchFact(): Observable<{}> {
     return this.http.get(this.apiUrl);
+  }
+
+  checkIfAlreadyFetched(data: any): boolean {
+    return this.facts.includes(data[0]);
+  }
+
+  addFactToFactArr(data: any) {
+    this.facts.push(data[0]);
   }
 }
